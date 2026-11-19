@@ -12,7 +12,7 @@ checks) and a negamax alpha-beta search with quiescence, MVV-LVA and
 killer-move ordering, plus one-ply check extension. Evaluation is
 material + piece-square tables (mirrored for black) + the bishop pair;
 50-move and repetition inside the search score 0. A fixed node budget
-(110,000 nodes per move, iterative deepening) replaces any clock, so a
+(430,000 nodes per move, iterative deepening) replaces any clock, so a
 replayed trial makes identical moves. No network beyond the env, no
 model calls, Python standard library only.
 
@@ -43,7 +43,7 @@ answers `done`. If a computed move is ever missing from the env's
 
 ## Files
 
-- `main.py` — the packed engine (3,945 bytes, the whole engine).
+- `main.py` — the packed engine (4,058 bytes, the whole engine).
 - `LICENSE` — MIT; `README.md` — this file; `.makefun/owner.json` — claim.
 
 ---
