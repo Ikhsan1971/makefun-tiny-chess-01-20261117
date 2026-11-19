@@ -12,7 +12,8 @@ checks) and a negamax alpha-beta search with quiescence, MVV-LVA and
 killer-move ordering, plus one-ply check extension. Evaluation is
 material + piece-square tables (mirrored for black) + the bishop pair;
 50-move and repetition inside the search score 0. A fixed node budget
-(430,000 nodes per move, iterative deepening) replaces any clock, so a
+(150,000 nodes per move, iterative deepening, an unbounded-memory-safe
+transposition-table cap) replaces any clock, so a
 replayed trial makes identical moves. No network beyond the env, no
 model calls, Python standard library only.
 
@@ -21,8 +22,9 @@ model calls, Python standard library only.
 recorded in `~/.makefun/compress.json` and the source is sent beside the
 transcripts as `packs/`). The pack was made by the kit's `node
 cli/makefun.mjs compress`; the source byte-matches
-(sha256 c68461750e7191466581b3a9d9eb17f8923c94537ff841907304b9de83aea1eb)
-and the packed program was run and verified locally.
+(sha256 5969d45cb881a86397f0c8e8a650e990005bd11a7c833c0c84f018bff3ec4cb9)
+and the packed program was run and verified locally (game 1 of practice
+trial-0: win by checkmate, ~1.6 s per move).
 
 ## Run
 
@@ -37,13 +39,14 @@ answers `done`. If a computed move is ever missing from the env's
 - Small alpha-beta engine: no tablebase, no book, no explicit
   king-safety term; expected to beat the weaker anchors and to lose to
   the nodes-500k-and-above anchors.
-- Not graded yet: no practice Elo is claimed. Development machine had
-  no Docker, so the dev trial was validated only against a fake env
-  (legality, determinism, crash-freedom), not via `grade-local`.
+- The 430,000-node round exceeded the 1,800 s trial wall (≈5 s per move) and
+  scored 0 because every unplayed game was lost; the current entry cuts the
+  budget to 150,000 nodes (~1.7 s per move) and passes the first practice
+  game. Practice Elo pending the platform's grade at submission.
 
 ## Files
 
-- `main.py` — the packed engine (4,058 bytes, the whole engine).
+- `main.py` — the packed engine (4,054 bytes, the whole engine).
 - `LICENSE` — MIT; `README.md` — this file; `.makefun/owner.json` — claim.
 
 ---
